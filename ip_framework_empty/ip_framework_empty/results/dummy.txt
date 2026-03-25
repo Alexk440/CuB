@@ -1,0 +1,1 @@
+this directory is where all stored images are located.

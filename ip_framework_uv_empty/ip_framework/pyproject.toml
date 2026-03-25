@@ -1,0 +1,41 @@
+[project]
+name = "ip-framework"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    # Core Data & Math
+    "numpy>=1.23",
+    "pandas>=2.2.3",
+    "scipy>=1.14.1",
+    "sympy>=1.13.3",
+    "mpmath>=1.3.0",
+    "networkx>=3.3",
+    # AI & Computer Vision
+    "torch>=2.4.1",
+    "torchvision>=0.19.1",
+    "ultralytics>=8.2.100",
+    "ultralytics-thop>=2.0.8",
+    "opencv-python>=4.10.0",
+    "scikit-image>=0.24.0",
+    # Graphics & UI
+    "matplotlib>=3.9.2",
+    "seaborn>=0.13.2",
+    "moderngl>=5.11.1",
+    "moderngl-window>=2.4.6",
+    "imgui-bundle>=1.5.2",
+    "pyglet>=2.1.dev5",
+    "pyopengl>=3.1.7",
+    # Pydantic & Validation
+    "pydantic>=2.9.2",
+    "annotated-types>=0.7.0",
+    # Utilities & Tools
+    "requests>=2.32.3",
+    "pyyaml>=6.0.2",
+    "tqdm>=4.66.5",
+    "jinja2>=3.1.4",
+    "fsspec>=2024.9.0",
+    "pillow>=10.4.0",
+    "jsonschema>=4.26.0",
+]
