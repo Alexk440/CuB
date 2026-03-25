@@ -1,0 +1,41 @@
+# Bytecode / Python compiled files
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environment folders
+venv/
+env/
+.venv/
+.env/
+
+# Logs
+*.log
+logs/
+*.out
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Results / output folders
+results/
+output/
+tmp/
+temp/
+
+# IDE/editor specific
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
