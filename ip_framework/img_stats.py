@@ -12,12 +12,10 @@ def compute_img_stats(input_img: np.ndarray):
 
 
 def compute_dims(input_img: np.ndarray) -> tuple[float, float]:
-
     return float(input_img.shape[0]), float(input_img.shape[1])
 
 
 def compute_mean(input_img: np.ndarray) -> list[float]:
-
     return np.mean(input_img, axis=(0, 1)).tolist()
 
 
@@ -29,18 +27,13 @@ def _map_channels(num_channels, func):
 def compute_histogram(input_img) -> list[tuple]:
     num_bins = 256
     num_channels = input_img.shape[2]
-
-    def _histogram_per_channel(channel, num_bins=num_bins, img=input_img):
-        return np.histogram(img[:, :, channel], bins=num_bins, range=(0,255))
-
+    def _histogram_per_channel(channel):
+        return np.histogram(input_img[:, :, channel], bins=num_bins, range=(0,255))
     return _map_channels(num_channels, _histogram_per_channel)
 
 
 def compute_entropy(input_img) -> list[float]:
-
     num_channels = input_img.shape[2]
-
-    def _entropy_per_channel(channel, img=input_img):
-        return skimage.measure.shannon_entropy(img[:, :, channel]) 
-
+    def _entropy_per_channel(channel):
+        return skimage.measure.shannon_entropy(input_img[:, :, channel])
     return _map_channels(num_channels, _entropy_per_channel)

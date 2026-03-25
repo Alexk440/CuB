@@ -163,5 +163,4 @@ defined_pipelines: List[Tuple[str, Pipeline]] = [
     pipeline_unsharp_masking(),
     pipeline_morph(),
     pipeline_median()
-
 ]
