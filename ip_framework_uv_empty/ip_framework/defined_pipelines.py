@@ -19,6 +19,14 @@ from pipeline.steps.median_filter import MedianFilterStep
 from pipeline.steps.yolo_object_detection import YoloObjectDetectionStep
 
 
+def pipeline_just_load_img():
+    steps = [
+        ('Load File', LoadFileStep(), {'file': 'img/landscape.png'})
+    ]
+
+    return Pipeline('just_load_img', steps)
+
+
 def pipeline_simple():
     steps = [
         ('Load File', LoadFileStep(), {'file': 'img/landscape.png'}),
@@ -142,6 +150,7 @@ def pipeline_median():
 
 
 defined_pipelines: List[Tuple[str, Pipeline]] = [
+    pipeline_just_load_img(),
     pipeline_camera(),
     pipeline_yolo(),
     pipeline_simple(),
@@ -154,4 +163,5 @@ defined_pipelines: List[Tuple[str, Pipeline]] = [
     pipeline_unsharp_masking(),
     pipeline_morph(),
     pipeline_median()
+
 ]
