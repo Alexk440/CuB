@@ -11,7 +11,7 @@ class FastLinearScalingStep(Step):
 
         output_img = input_img.copy()
 
-        # TODO
+        output_img = c2 * output_img + np.array(c1 * c2)
 
         return StepResult(output_img)
 
