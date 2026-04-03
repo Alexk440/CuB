@@ -13,6 +13,7 @@ class SlowLinearScalingStep(Step):
 
         linear_scale = np.frompyfunc(lambda px: np.clip(c2 * px + c1 * c2, 0, 255), 1, 1)
         output_img = linear_scale(output_img)
+        output_img = np.asarray(output_img, dtype=input_img.dtype)
 
         return StepResult(output_img)
 
