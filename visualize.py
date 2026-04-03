@@ -2,12 +2,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 messungen = {
-    ("512", "Slow"): [2800, 2750, 2820],
-    ("512", "Fast"): [12, 11, 13],
-    ("1024", "Slow"): [11000, 11250, 10980],
-    ("1024", "Fast"): [45, 47, 44],
-    ("2048", "Slow"): [44000, 43800, 44500],
-    ("2048", "Fast"): [180, 175, 182],
+    ("512", "Slow"): [2369.3, 3168.1, 2457.1],
+    ("512", "Fast"): [4.0, 4.1, 4.7],
+    ("1024", "Slow"): [13032.0, 12352.8, 14602.7],
+    ("1024", "Fast"): [15.7, 17.6, 17.2],
+    ("2088", "Slow"): [51667.2, 60986.1, 71132.4],
+    ("2088", "Fast"): [64.9, 63.1, 68.1],
 }
 
 df = pd.DataFrame(
@@ -22,8 +22,3 @@ plt.ylabel("Laufzeit [ms]")
 print(df.groupby(["Bild", "Methode"])["Zeit"].agg(["mean", "std"]))
 
 plt.show()
-
-
-# Die schnelle Variante ist deutlich schneller, weil sie vektorisierte NumPy-Operationen auf dem gesamten Bild nutzt, während die langsame Variante mit np.frompyfunc und einer Python-Funktion mehr Overhead erzeugt.
-# Mit zunehmender Bildgröße steigt die Laufzeit beider Methoden, da mehr Pixel verarbeitet werden müssen und auf jedes Pixel dieselbe Rechenvorschrift angewendet wird.
-# Kleine Unterschiede zwischen den Messungen sind normal und lassen sich durch Hintergrundprozesse, Cache-Effekte und allgemeine Systemschwankungen erklären.
