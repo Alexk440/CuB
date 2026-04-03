@@ -8,22 +8,25 @@ Die schnelle Variante ist deutlich schneller, weil sie vektorisierte NumPy-Opera
 Größere Bilder haben mehr Pixel, weswegen mehr Berechnungen erforderlich sind, was die Laufzeit erhöht.
 Kleine Unterschiede zwischen den Messungen sind normal und lassen sich durch Hintergrundprozesse, Cache-Effekte und allgemeine Systemschwankungen erklären.
 
-Bild1: 512x512
-Bild2: 1024x1024
-Bild3: 2088x2088
+Es wurden die folgenden drei Bildgrößen verwendet:
+- `512 × 512 Pixel`
+- `1024 × 1024 Pixel`
+- `2088 × 2088 Pixel`
 
+## Balkendiagramm der Laufzeiten:
 
 ![Screenshot Aufgabe 1.2](./Diagramm_1.2.png)
 
+## Tabelle mit Mittelwerten und Standardabweichungen:
 
-| Bild | Methode | mean        | std          |
-|------|---------|------------|--------------|
-| 1024 | Fast    | 16.833333  | 1.001665     |
-| 1024 | Slow    | 13329.166667 | 1154.011925 |
-| 2088 | Fast    | 65.366667  | 2.532456     |
-| 2088 | Slow    | 61261.900000 | 9735.530391 |
-| 512  | Fast    | 4.266667   | 0.378594     |
-| 512  | Slow    | 2664.833333 | 438.047045  |
+| Bild | Methode  | mean         | std          |
+|------|----------|--------------|--------------|
+| 1024 | Fast     | 16.833333    | 1.001665     |
+| 1024 | Slow     | 13329.166667 | 1154.011925  |
+| 2088 | Fast     | 65.366667    | 2.532456     |
+| 2088 | Slow     | 61261.900000 | 9735.530391  |
+| 512  | Fast     | 4.266667     | 0.378594     |
+| 512  | Slow     | 2664.833333  | 438.047045   |
 
 
 
