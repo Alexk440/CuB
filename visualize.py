@@ -17,7 +17,8 @@ df = pd.DataFrame(
 
 stats = df.groupby(["Bild", "Methode"])["Zeit"].mean().unstack()
 stats.plot.bar()
-plt.ylabel("Laufzeit [ms]")
+plt.ylabel("Laufzeit [ms] (log scale)")
+plt.yscale("log") 
 
 print(df.groupby(["Bild", "Methode"])["Zeit"].agg(["mean", "std"]))
 
