@@ -91,7 +91,12 @@ def pipeline_compare_fast_slow_convolution():
                        [-1 / 16, -1 / 16, -1 / 16, -1 / 16],
                        [10 / 16, 1 / 16, -1 / 16, -1 / 16],
                        [-1 / 16, -1 / 16, -1 / 16, 10 / 16]])
-
+    #TODO:
+    #Implementieren Sie dazu auch die entsprechenden Pipelines ("Slow Convolution", "Fast Convolution", existieren schon unvollständig in "defined_pipelines.py") mit einer Laplace-Filtermaske beliebiger Größe (siehe Vorlesung).
+    #Die Laufzeit des Schritts wird im "Log" ausgegeben. Machen Sie je 3 Durchläufe und tragen Sie
+    # die Ergebnisse in einem Balkendiagramm zusammen (wieder: Mittelwert, Standardabweichung pro Pipeline).
+    #Das Balkendiagramm wird dann zusammen mit einer Begründung des beobachteten Verhaltens Teil der
+    # Ausarbeitung.
 
     steps = [
         ('Load File', LoadFileStep(), {'file': 'img/landscape_small.png'}),
@@ -103,19 +108,26 @@ def pipeline_compare_fast_slow_convolution():
 
 
 def pipeline_slow_convolution():
+    kernel = np.array([[-1 / 16, 1 / 16, -1 / 16, -1 / 16],
+                       [-1 / 16, -1 / 16, -1 / 16, -1 / 16],
+                       [10 / 16, 1 / 16, -1 / 16, -1 / 16],
+                       [-1 / 16, -1 / 16, -1 / 16, 10 / 16]])
     steps = [
-        ('Load File', LoadFileStep(), {'file': 'img/landscape.png'})
-        # TODO: Add next steps.
+        ('Load File', LoadFileStep(), {'file': 'img/flower.png'}),
+        ('Convolute', SlowConvStep(filter_kernel=kernel), {})
     ]
 
     return Pipeline('Slow Convolution', steps)
 
 
 def pipeline_fast_convolution():
+    kernel = np.array([[-1 / 16, 1 / 16, -1 / 16, -1 / 16],
+                       [-1 / 16, -1 / 16, -1 / 16, -1 / 16],
+                       [10 / 16, 1 / 16, -1 / 16, -1 / 16],
+                       [-1 / 16, -1 / 16, -1 / 16, 10 / 16]])
     steps = [
-        ('Load File', LoadFileStep(), {'file': 'img/landscape.png'})
-        # TODO: Add next steps.
-
+        ('Load File', LoadFileStep(), {'file': 'img/flower.png'}),
+        ('Convolute', FastConvStep(filter_kernel=kernel), {})
     ]
 
     return Pipeline('Fast Convolution', steps)

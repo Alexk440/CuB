@@ -1,8 +1,7 @@
 import numpy as np
-import scipy as scipy
 
 from scipy import ndimage
-from pipeline.steps.step import Step, StepResult, StepWrapper
+from pipeline.steps.step import Step, StepResult
 
 
 class FastConvStep(Step):
@@ -17,9 +16,11 @@ class FastConvStep(Step):
         output_imgs = []
 
         for i in range(num_channels):
-
-            # TODO: replace this line with the convolution operation.
-            output_img = np.empty_like(input_img[:, :, i])
+            channel_img = input_img[:, :, i].astype(np.float64)
+            output_img = ndimage.convolve(
+                channel_img,
+                self.filter_kernel,
+            ).astype(input_img.dtype)
 
             output_imgs.append(output_img)
 

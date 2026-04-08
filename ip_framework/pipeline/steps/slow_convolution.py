@@ -1,6 +1,6 @@
 import numpy as np
 
-from pipeline.steps.step import Step, StepResult, StepWrapper
+from pipeline.steps.step import Step, StepResult
 
 
 class SlowConvStep(Step):
@@ -14,14 +14,30 @@ class SlowConvStep(Step):
         num_channels = input_img.shape[2]
         output_imgs = []
 
-        # See also https://towardsdatascience.com/convolution-vs-correlation-af868b6b4fb5
+        x_kernel, y_kernel = self.filter_kernel.shape
+        x_center = x_kernel // 2
+        y_center = y_kernel // 2
 
         for i in range(num_channels):
 
             output_img = np.empty_like(input_img[:, :, i])
 
-            # TODO implement convolution for channel i and store result in output_img
-            #      input is input_img[:, :, i] for channel i.
+            for x in range(input_img.shape[0]):
+                for y in range(input_img.shape[1]):
+                    def get_pixel(x, y):
+                        if x < 0 or x >= input_img.shape[0] or y < 0 or y >= input_img.shape[1]:
+                            return 0
+                        else:
+                            return input_img[int(x), int(y), i]
+
+                    new_pixel = 0
+                    for u in range(x_kernel):
+                        for v in range(y_kernel):
+                            x_offset = u - x_center
+                            y_offset = v - y_center
+                            new_pixel += self.filter_kernel[u, v] * get_pixel(x - x_offset, y - y_offset)
+
+                    output_img[x, y] = new_pixel
 
             output_imgs.append(output_img)
 

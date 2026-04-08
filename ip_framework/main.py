@@ -312,7 +312,7 @@ class AppState:
 def main():
 
     # Necessary for uv + vscode
-    immvision.use_rgb_color_order()
+    #immvision.use_rgb_color_order()
 
     # Our application state
     app_state = AppState()
