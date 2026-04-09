@@ -1,6 +1,5 @@
 import numpy as np
 import scipy as scipy
-
 from scipy import ndimage
 from pipeline.steps.step import Step, StepResult, StepWrapper
 
@@ -16,7 +15,13 @@ class MedianFilterStep(Step):
         n = config['n']
         m = config['m']
 
-        # TODO
+        for i in range(num_channels):
+            channel_img = input_img[:, :, i]
+            output_imgs.append(ndimage.median_filter(
+                channel_img,
+                size=(m, n),
+                mode='constant'))
+
 
         combined_output_img = np.stack(output_imgs, axis=2)
 

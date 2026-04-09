@@ -91,12 +91,6 @@ def pipeline_compare_fast_slow_convolution():
                        [-1 / 16, -1 / 16, -1 / 16, -1 / 16],
                        [10 / 16, 1 / 16, -1 / 16, -1 / 16],
                        [-1 / 16, -1 / 16, -1 / 16, 10 / 16]])
-    #TODO:
-    #Implementieren Sie dazu auch die entsprechenden Pipelines ("Slow Convolution", "Fast Convolution", existieren schon unvollständig in "defined_pipelines.py") mit einer Laplace-Filtermaske beliebiger Größe (siehe Vorlesung).
-    #Die Laufzeit des Schritts wird im "Log" ausgegeben. Machen Sie je 3 Durchläufe und tragen Sie
-    # die Ergebnisse in einem Balkendiagramm zusammen (wieder: Mittelwert, Standardabweichung pro Pipeline).
-    #Das Balkendiagramm wird dann zusammen mit einer Begründung des beobachteten Verhaltens Teil der
-    # Ausarbeitung.
 
     steps = [
         ('Load File', LoadFileStep(), {'file': 'img/landscape_small.png'}),
@@ -112,9 +106,14 @@ def pipeline_slow_convolution():
                        [-1 / 16, -1 / 16, -1 / 16, -1 / 16],
                        [10 / 16, 1 / 16, -1 / 16, -1 / 16],
                        [-1 / 16, -1 / 16, -1 / 16, 10 / 16]])
+
+    laplace_filter_kernel = np.array([[0,-1,0],
+                                      [-1,4,-1],
+                                      [0,-1,0]])
     steps = [
         ('Load File', LoadFileStep(), {'file': 'img/flower.png'}),
-        ('Convolute', SlowConvStep(filter_kernel=kernel), {})
+        ('Convolute', SlowConvStep(filter_kernel=kernel), {}),
+        ('ConvoluteLaplace', SlowConvStep(filter_kernel=laplace_filter_kernel), {})
     ]
 
     return Pipeline('Slow Convolution', steps)
@@ -125,9 +124,17 @@ def pipeline_fast_convolution():
                        [-1 / 16, -1 / 16, -1 / 16, -1 / 16],
                        [10 / 16, 1 / 16, -1 / 16, -1 / 16],
                        [-1 / 16, -1 / 16, -1 / 16, 10 / 16]])
+
+    laplace_filter_kernel = np.array([
+        [0, -1, 0 ],
+        [-1, 4, -1],
+        [0, -1, 0]])
+
     steps = [
         ('Load File', LoadFileStep(), {'file': 'img/flower.png'}),
-        ('Convolute', FastConvStep(filter_kernel=kernel), {})
+        ('Convolute', FastConvStep(filter_kernel=kernel), {}),
+        ('ConvoluteLaplace', FastConvStep(filter_kernel=laplace_filter_kernel), {})
+
     ]
 
     return Pipeline('Fast Convolution', steps)
@@ -145,9 +152,35 @@ def pipeline_morph():
                        [1, 1, 1],
                        [0, 1, 0]])
 
+    kernel2 = np.array([
+        [-1 / 16, 1 / 16, -1 / 16],
+        [-1 / 16, 1 / 16, -1 / 16],
+        [-1 / 16, 1 / 16, -1 / 16]
+                        ])
+
+    kernel3 = np.array([
+        [5, 1, 5],
+        [-1, 7, -1],
+        [5, 1, 5]
+                ])
+
     steps = [
         ('Load File', LoadFileStep(), {'file': 'img/landscape_small.png'}),
-        ('Morph', MorphOpStep(kernel), {})
+
+        ('Morph', MorphOpStep(kernel), {'operation': 'erosion'}),
+        ('Morph', MorphOpStep(kernel), {'operation': 'dilation'}),
+        ('Morph', MorphOpStep(kernel), {'operation': 'closing'}),
+        ('Morph', MorphOpStep(kernel), {'operation': 'opening'}),
+
+        ('Morph', MorphOpStep(kernel2), {'operation': 'erosion'}),
+        ('Morph', MorphOpStep(kernel2), {'operation': 'dilation'}),
+        ('Morph', MorphOpStep(kernel2), {'operation': 'closing'}),
+        ('Morph', MorphOpStep(kernel2), {'operation': 'opening'}),
+
+        ('Morph', MorphOpStep(kernel3), {'operation': 'erosion'}),
+        ('Morph', MorphOpStep(kernel3), {'operation': 'dilation'}),
+        ('Morph', MorphOpStep(kernel3), {'operation': 'closing'}),
+        ('Morph', MorphOpStep(kernel3), {'operation': 'opening'}),
     ]
 
     return Pipeline('Morph Filter', steps)

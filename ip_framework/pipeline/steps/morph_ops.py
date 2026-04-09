@@ -1,5 +1,8 @@
 import numpy as np
+from sympy.strategies.core import switch
+
 from pipeline.steps.step import Step, StepResult, StepWrapper
+from skimage.morphology import opening, closing, erosion, dilation
 
 
 class MorphOpStep(Step):
@@ -15,7 +18,16 @@ class MorphOpStep(Step):
         num_channels = input_img.shape[2]
         output_imgs = []
 
-        # TODO
+        for i in range(num_channels):
+            channel_img = input_img[:, :, i]
+            if op == 'erosion':
+                output_imgs.append(erosion(channel_img))
+            elif op == 'dilation':
+                output_imgs.append(dilation(channel_img))
+            elif op == 'closing':
+                output_imgs.append(closing(channel_img))
+            elif op == 'opening':
+                output_imgs.append(opening(channel_img))
 
         combined_output_img = np.stack(output_imgs, axis=2)
 

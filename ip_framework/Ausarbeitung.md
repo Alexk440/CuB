@@ -28,5 +28,36 @@ Es wurden die folgenden drei Bildgrößen verwendet:
 | 512  | Fast     | 4.266667     | 0.378594     |
 | 512  | Slow     | 2664.833333  | 438.047045   |
 
+# Aufgabe 3
 
+## Balkendiagramm der Laufzeiten
 
+![Screenshot Aufgabe 1.3](Diagramm_1.3.png)
+
+## Tabelle mit Mittelwerten und Standardabweichungen
+
+| Methode | mean         | std         |
+|---------|--------------|-------------|
+| Fast    | 11.633333    | 5.858612    |
+| Slow    | 25860.400000 | 4974.656327 |
+
+# Aufgabe 4
+
+## Morphologische Operatoren
+
+- ('kernel1', 'erosion'): 7.8,
+- ('kernel1', 'dilation'): 8.0,
+- ('kernel1', 'closing'): 15.8,
+- ('kernel1', 'opening'): 13.8,
+- ('kernel2', 'erosion'): 9.8,
+- ('kernel2', 'dilation'): 8.0,
+- ('kernel2', 'closing'): 13.8,
+- ('kernel2', 'opening'): 13.8,
+- ('kernel3', 'erosion'): 7.5,
+- ('kernel3', 'dilation'): 8.0,
+- ('kernel3', 'closing'): 13.8,
+- ('kernel3', 'opening'): 15.8,
+
+## Median-Filter
+
+Resultat des Medianfilters auf Salt.jpg: Das Rauschen verschwindet, jedoch ist das Bild danach verschwommener.
