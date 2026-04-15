@@ -1,6 +1,12 @@
 import torch
 import numpy as np
-#TODO Add necessary imports.
+from torchvision import transforms
+from torchvision.models.segmentation import (
+    FCN_ResNet101_Weights,
+    DeepLabV3_ResNet101_Weights,
+    deeplabv3_resnet101,
+    fcn_resnet101,
+)
 
 from pipeline.steps.step import Step, StepResult
 
@@ -10,19 +16,28 @@ class SemanticSegmentationStep(Step):
         self.models = {}
 
     def load_model(self, model_name):
+        if model_name == 'fcn':
+            model = fcn_resnet101(weights=FCN_ResNet101_Weights.COCO_WITH_VOC_LABELS_V1)
+        elif model_name == 'deeplab':
+            model = deeplabv3_resnet101(weights=DeepLabV3_ResNet101_Weights.COCO_WITH_VOC_LABELS_V1)
+        else:
+            raise ValueError(f"Unknown semantic segmentation model '{model_name}'. Expected 'fcn' or 'deeplab'.")
 
-        # TODO Load model model_name, add it to self.models and return it.
-        return None
+        model.eval()
+        self.models[model_name] = model
+        return model
 
     def apply(self, input_img: np.ndarray, config: dict = None) -> StepResult:
 
-        model_name = config['model'].lower()
+        model_name = config.get('model', 'fcn').lower()
 
-        # TODO Load the model if it hasn't been loaded yet.
-        model = None
+        model = self.models.get(model_name)
+        if model is None:
+            model = self.load_model(model_name)
 
-        # TODO Apply the necessary transformations to input_img and create the input_tensor.
-        input_tensor = None
+        rgb_img = np.array(input_img, dtype=np.uint8, copy=True)
+
+        input_tensor = transforms.ToTensor()(rgb_img)
 
         # Perform the segmentation.
         with torch.no_grad():
@@ -48,7 +63,11 @@ class SemanticSegmentationStep(Step):
         return {
             'type': 'object',
             'properties': {
-                'model': {'type': 'string', 'default': 'fcn'}
+                'model': {
+                    'type': 'string',
+                    'default': 'fcn',
+                    'enum': ['fcn', 'deeplab']
+                }
             },
             'required': ['model']
         }

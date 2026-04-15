@@ -10,6 +10,7 @@ from pipeline.steps.fast_convolution import FastConvStep
 from pipeline.steps.difference import DiffStep
 from pipeline.steps.fast_linear_scaling import FastLinearScalingStep
 from pipeline.steps.load_file import LoadFileStep
+from pipeline.steps.semantic_segmentation import SemanticSegmentationStep
 from pipeline.steps.set_channel import SetChannelToConstStep
 from pipeline.steps.slow_convolution import SlowConvStep
 from pipeline.steps.slow_linear_scaling import SlowLinearScalingStep
@@ -43,6 +44,24 @@ def pipeline_camera():
     ]
 
     return Pipeline('Camera Pipeline', steps)
+
+
+def pipeline_semantic_segmentation_load_file():
+    steps = [
+        ('Load File', LoadFileStep(), {'file': 'img/street.png'}),
+        ('Semantic Segmentation', SemanticSegmentationStep(), {'model': 'fcn'})
+    ]
+
+    return Pipeline('Semantic Segmentation (Load File)', steps)
+
+
+def pipeline_semantic_segmentation_camera():
+    steps = [
+        ('Get Camera Frame', CameraStep(), {}),
+        ('Semantic Segmentation', SemanticSegmentationStep(), {'model': 'fcn'})
+    ]
+
+    return Pipeline('Semantic Segmentation (Camera)', steps)
 
 
 def pipeline_yolo():
@@ -195,6 +214,8 @@ def pipeline_median():
 
 
 defined_pipelines: List[Tuple[str, Pipeline]] = [
+    pipeline_semantic_segmentation_load_file(),
+    pipeline_semantic_segmentation_camera(),
     pipeline_just_load_img(),
     pipeline_camera(),
     pipeline_yolo(),
