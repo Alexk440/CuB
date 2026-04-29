@@ -35,6 +35,7 @@ class SemanticSegmentationStep(Step):
 
         model = self.load_model(model_name)
 
+        # If alpha-channel exists, remove it.
         if input_img.shape[-1] == 4:
             input_img = input_img[..., :3]
 

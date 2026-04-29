@@ -22,14 +22,15 @@ class SlowConvStep(Step):
 
             output_img = np.empty_like(input_img[:, :, i])
 
+            def get_pixel(x, y):
+                # Zero-Padding
+                if x < 0 or x >= input_img.shape[0] or y < 0 or y >= input_img.shape[1]:
+                    return 0
+                else:
+                    return input_img[int(x), int(y), i]
+
             for x in range(input_img.shape[0]):
                 for y in range(input_img.shape[1]):
-                    def get_pixel(x, y):
-                        if x < 0 or x >= input_img.shape[0] or y < 0 or y >= input_img.shape[1]:
-                            return 0
-                        else:
-                            return input_img[int(x), int(y), i]
-
                     new_pixel = 0
                     for u in range(x_kernel):
                         for v in range(y_kernel):
