@@ -28,7 +28,7 @@ def compute_histogram(input_img) -> list[tuple]:
     num_bins = 256
     num_channels = input_img.shape[2]
     def _histogram_per_channel(channel):
-        return np.histogram(input_img[:, :, channel], bins=num_bins, range=(0,255))
+        return np.histogram(input_img[:, :, channel], bins=num_bins, range=(0,255), density=True)
     return _map_channels(num_channels, _histogram_per_channel)
 
 

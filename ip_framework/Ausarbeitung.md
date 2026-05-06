@@ -58,6 +58,17 @@ Es wurden die folgenden drei Bildgrößen verwendet:
 - ('kernel3', 'closing'): 13.8,
 - ('kernel3', 'opening'): 15.8,
 
+Originalbild:
+![Originalbild](img_morph/original.png)
+Erosion:
+![Erosion](img_morph/erosion.png)
+Dilation:
+![Dilation](img_morph/dilation.png)
+Closing:
+![Closing](img_morph/closing.png)
+Opening:
+![Opening](img_morph/opening.png)
+
 ## Median-Filter
 
 Resultat des Medianfilters auf Salt.jpg: Das Rauschen verschwindet, jedoch ist das Bild danach verschwommener.
@@ -72,7 +83,13 @@ Das Modell ist nicht fehlerfrei, aber es erkennt grob die gelernten Labels.
 
 ![Screenshot Aufgabe 1.5](img_seg/camera_seg2.png)
 
+fcn:
 ![Screenshot Aufgabe 1.5](img_seg/street_seg.png)
+deeplab:
+![Screenshot Aufgabe 1.5](img_seg/street_seg2.png)
 
+fcn:
 ![Screenshot Aufgabe 1.5](img_seg/wii_seg.png)
+deeplab:
+![Screenshot Aufgabe 1.5](img_seg/wii_seg2.png)
 
